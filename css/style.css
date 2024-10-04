@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #009CFF;
+    --primary: red;
     --light: #F3F6F9;
     --dark: #191C24;
 }
@@ -124,7 +124,7 @@
 /*** Navbar ***/
 .sidebar .navbar .navbar-nav .nav-link {
     padding: 7px 20px;
-    color: var(--dark);
+    color: orangered;
     font-weight: 500;
     border-left: 3px solid var(--light);
     border-radius: 0 30px 30px 0;
@@ -134,7 +134,7 @@
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: #FFFFFF;
+    background: rgb(242, 167, 167);
     border-color: var(--primary);
 }
 
@@ -169,8 +169,28 @@
 }
 
 .sidebar .navbar .dropdown-item {
-    padding-left: 25px;
+    padding: 7px 20px;
+    color: orangered;
+    font-weight: 500;
+    border-left: 3px solid var(--light);
     border-radius: 0 30px 30px 0;
+    outline: none;
+
+    
+}
+
+.sidebar .navbar .dropdown-item:hover{
+    color: var(--primary);
+    background: rgb(242, 167, 167);
+    border-color: var(--primary);
+    
+}
+
+.sidebar .navbar .dropdown-item:active,
+.sidebar .navbar .dropdown-item:focus {
+    color: var(--primary);
+    background: rgb(242, 167, 167);
+    border-color: var(--primary);
 }
 
 .content .navbar .navbar-nav .nav-link {
@@ -237,7 +257,7 @@
 
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
-    background: var(--primary);
+    background: var(--dark);
 }
 
 .bootstrap-datetimepicker-widget table td.today::before {

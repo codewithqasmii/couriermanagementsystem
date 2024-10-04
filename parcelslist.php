@@ -2,7 +2,7 @@
 session_start();
 ?>
 <?php
-include('connection.php');
+include("connection.php");
 ?>
 
 <?php
@@ -21,15 +21,17 @@ include("header.php");
                     <button type="submit">Search</button>
                 </form>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Sr.No</th>
                                 <th>Track Id</th>
-                                <th>S.Name</th>
-                                <th>S.Contact</th>
-                                <th>R.Name</th>
-                                <th>R.Contact</th>
+                                <th>Sender Name</th>
+                                <th>Sender Address</th>
+                                <th>Sender Contact</th>
+                                <th>Reciever Name</th>
+                                <th>Reciever Address</th>
+                                <th>Reciever Contact</th>
                                 <th>Weight</th>
                                 <th>Price</th>
                                 <th>Status</th>
@@ -50,49 +52,63 @@ include("header.php");
                             } else {
                                 $sql = "SELECT * FROM parcels";
                             }
-                            $result = mysqli_query($conn, $sql);
 
-                            $i = 1;
-                            while ($data = mysqli_fetch_array($result)) { 
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (count($result) == 0) {
+                            ?>
+                                <script>
+                                    alert("No tracking ID found!");
+                                    window.location.href = "parcelslist.php";
+                                </script>
+                                <?php
+                            } else {
+                                $i = 1;
+                                foreach ($result as $data) {
                                 ?>
-                                <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $data['track_id']; ?></td>
-                                    <td><?php echo $data['sender_name']; ?></td>
-                                    <td><?php echo $data['sender_contact']; ?></td>
-                                    <td><?php echo $data['recipent_name']; ?></td>
-                                    <td><?php echo $data['recipent_contact']; ?></td>
-                                    <td><?php echo $data['weight']; ?></td>
-                                    <td><?php echo $data['price']; ?></td>
-                                    <td><?php echo $data['status']; ?></td>
-                                    <td><?php echo $data['agent_name']; ?></td>
-                                    <td><?php echo $data['date']; ?></td>
-                                    <td>
-                                        <button class="btn btn-success border-0">
-                                            <a href="editParcel.php?id=<?php echo $data['id']; ?>" style="text-decoration: none; color: black;">
-                                                Edit
-                                            </a>
-                                        </button>
-                                    </td>
+                                    <tr>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $data['track_id']; ?></td>
+                                        <td><?php echo $data['sender_name']; ?></td>
+                                        <td><?php echo $data['sender_address']; ?></td>
+                                        <td><?php echo $data['sender_contact']; ?></td>
+                                        <td><?php echo $data['recipent_name']; ?></td>
+                                        <td><?php echo $data['recipent_address']; ?></td>
+                                        <td><?php echo $data['recipent_contact']; ?></td>
+                                        <td><?php echo $data['weight']; ?></td>
+                                        <td><?php echo $data['price']; ?></td>
+                                        <td><?php echo $data['status']; ?></td>
+                                        <td><?php echo $data['agent_name']; ?></td>
+                                        <td><?php echo $data['date']; ?></td>
+                                        <td>
+                                            <button class="btn btn-success border-0">
+                                                <a href="editParcel.php?id=<?php echo $data['id']; ?>" style="text-decoration: none; color: black;">
+                                                    Edit
+                                                </a>
+                                            </button>
+                                        </td>
 
-                                    <td>
-                                        <button class="btn btn-danger border-0">
-                                            <a href="deleteParcel.php?id=<?php echo $data['id']; ?>" style="text-decoration: none; color: black;">
-                                                Delete
-                                            </a>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary border-0" onclick="printRow(this)">
-                                            Print
-                                        </button>
-                                    </td>
+                                        <td>
+                                            <button class="btn btn-danger border-0">
+                                                <a href="deleteParcel.php?id=<?php echo $data['id']; ?>" style="text-decoration: none; color: black;" onclick="return confirm('Are you sure you want to delete this parcel?')">Delete</a> </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary border-0" onclick="printRow(this)">
+                                                <i class="fa fa-print text-white" style="font-size: 20px;"></i>
+
+                                            </button>
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
 
-                            <?php $i++;
-                            } ?>
+                            <?php
+                                    $i++;
+                                }
+                            }
+                            ?>
 
 
                         </tbody>
@@ -108,6 +124,10 @@ include("header.php");
 include("footer.php");
 ?>
 
+
+
+<!-- fucntion for pirnt -->
+
 <script>
     function printRow(button) {
         var row = button.parentNode.parentNode;
@@ -115,17 +135,68 @@ include("footer.php");
         var rows = table.rows;
         var index = Array.prototype.indexOf.call(rows, row);
 
-        // create a new window with the row content
         var printWindow = window.open('', 'Print Row', 'width=800,height=600');
-        printWindow.document.write('<html><head><title>Print Row</title></head><body>');
-        printWindow.document.write('<table>');
+        printWindow.document.write('<html><head><title>Parcel Receipt</title><style>table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px; }</style></head><body>');
+        printWindow.document.write('<img src="img/logo.png" alt="CMS Logo" style="width: 150px; display: block; margin: 0 auto;">');
+        printWindow.document.write('<h1 style="text-align: center;">CMS - Parcel Receipt</h1>'); // add CMS heading
+
+        printWindow.document.write('<table style="margin: 0 auto;">');
         printWindow.document.write('<tr>');
-        for (var i = 0; i < row.cells.length; i++) {
-            printWindow.document.write('<td>' + row.cells[i].innerHTML + '</td>');
-        }
+        printWindow.document.write('<td>Date: ' + row.cells[12].innerHTML + '</td>');
         printWindow.document.write('</tr>');
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>Track ID: ' + row.cells[1].innerHTML + '</td>');
+        printWindow.document.write('</tr>');
+
+
+        printWindow.document.write('<tr><th>Sender Details</th></tr>');
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        printWindow.document.write('<p>Sender Name: ' + row.cells[2].innerHTML + '</p>');
+        printWindow.document.write('<p>Sender Address: ' + row.cells[3].innerHTML + '</p>');
+        printWindow.document.write('<p>Sender Contact: ' + row.cells[4].innerHTML + '</p>');
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+
+        printWindow.document.write('<tr><th>Reciever Details</th></tr>');
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        printWindow.document.write('<p>Reciever Name: ' + row.cells[5].innerHTML + '</p>');
+        printWindow.document.write('<p>Reciever Address: ' + row.cells[6].innerHTML + '</p>');
+        printWindow.document.write('<p>Reciever Contact: ' + row.cells[7].innerHTML + '</p>');
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+
+        printWindow.document.write('<tr><th>Parcel Details</th></tr>');
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        printWindow.document.write('<p>Weight: ' + row.cells[8].innerHTML + '</p>');
+        printWindow.document.write('<p>Total Price: ' + row.cells[9].innerHTML + '</p>');
+        printWindow.document.write('<p>Book By: ' + row.cells[11].innerHTML + '</p>'); // Add book by field
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        var currentDate = new Date();
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        printWindow.document.write('<p>Receiver Signature: ______________________</p>');
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('<tr>');
+        printWindow.document.write('<td>');
+        printWindow.document.write('<p>Thanks for using CMS courier services.</p>');
+        printWindow.document.write('</td>');
+        printWindow.document.write('</tr>');
+
         printWindow.document.write('</table>');
         printWindow.document.write('</body></html>');
-        printWindow.print();
+        setTimeout(function() {
+            printWindow.print();
+        }, 1000); // delay for 1 second
     }
 </script>

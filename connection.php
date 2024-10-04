@@ -1,15 +1,14 @@
 <?php
+// Connection
 $servername = "localhost";
 $username = "root";
 $password = "";
-$db="couriersystem";
+$dbname = "couriersystem";
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password,$db);
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
 
 ?>
+
+

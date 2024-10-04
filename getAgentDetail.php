@@ -1,11 +1,8 @@
-
-
-
 <?php
 session_start();
 ?>
 <?php
-include('connection.php');
+include("connection.php")
 ?>
 
 <?php
@@ -37,9 +34,9 @@ $stmt = $conn->prepare("SELECT
 
 $stmt->execute();
 
-$agent_parcels = $stmt->get_result();
+$agent_parcels = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($agent_parcels->num_rows > 0) {
+if (count($agent_parcels) > 0) {
     // Display agent total parcels in a table
 ?>
     <table class="table table-striped">
@@ -56,14 +53,14 @@ if ($agent_parcels->num_rows > 0) {
         </thead>
         <tbody>
             <?php
-            while ($row = $agent_parcels->fetch_assoc()) {
+            foreach ($agent_parcels as $row) {
                 $agent_name = $row['agent_name'];
                 $total_parcels = $row['total_parcels'];
                 $total_delivered_parcels = $row['total_delivered_parcels'];
                 $total_receive_parcels = $row['total_receive_parcels'];
                 $total_on_the_way = $row['total_on_the_way'];
                 $total_returned_parcels = $row['total_returned_parcels'];
-                $total_pending_parcels = $row['total_returned_parcels'];
+                $total_pending_parcels = $row['total_pending_parcels'];
                 echo "<tr>";
                 echo "<td>$agent_name</td>";
                 echo "<td>$total_parcels</td>";
@@ -92,10 +89,3 @@ if ($agent_parcels->num_rows > 0) {
 <?php
 include("footer.php");
 ?>
-
-
-
-
-
-
-

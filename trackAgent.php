@@ -1,10 +1,10 @@
 <?php
+session_start();
+// connection 
 include("connection.php");
+include("includes/agentheader.php");
 ?>
 
-<?php
-include("includes/userheader.php");
-?>
 <style>
     .animated-arrow {
         animation: blink 1s infinite;
@@ -27,8 +27,7 @@ include("includes/userheader.php");
 <!-- Blank Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row vh-100 bg-light rounded justify-content-center mx-0">
-        <div class="col-md-8 text-center mt-3">
-            <h1 class="text-danger animate__animated animate__zoomInUp">Welcome to our Courier Service</h1>
+        <div class="col-md-8 text-center">
             <h2 class="mt-5">Track Parcel</h2>
             <!-- Add a search form above the table -->
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
@@ -41,7 +40,7 @@ include("includes/userheader.php");
 
                     </span>
                     <div>
-                        <button class="btn btn-primary" onclick="printParcelStatus()"> <i class="fa fa-print text-white" style="font-size: 20px;"></i>
+                        <button class="btn btn-primary" onclick="printParcelStatus()">                                            <i class="fa fa-print text-white" style="font-size: 20px;"></i>
                         </button>
                     </div>
 
@@ -51,18 +50,18 @@ include("includes/userheader.php");
                 <?php
                 $search = $_GET['search'];
                 $stmt = $conn->prepare("SELECT * FROM parcels WHERE track_id LIKE :track_id");
-                $stmt->bindParam(":track_id", $search);
+                $stmt->bindParam(':track_id', $search);
                 $stmt->execute();
-                $result = $stmt->fetch();
-
-                if ($result) {
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $data = $result[0];
+                if ($data) {
                     echo "<h2 style='margin-top: 50px;'>Parcel Status:</h2>";
-                    echo "Track ID: " . $result['track_id'] . "<br>";
+                    echo "Track ID: " . $data['track_id'] . "<br>";
                     echo "<br />";
 
                     $statuses = array(1 => 'Received', 2 => 'On the way', 3 => 'Pending', 4 => 'Delivered', 5 => 'Returned');
                     $buttons = array();
-                    if ($result['status'] == 5) { // If status is equal to 5 (Returned)
+                    if ($data['status'] == 5) { // If status is equal to 5 (Returned)
                         $buttons[] = "<button class='btn btn-danger rounded'>Received</button>";
                         $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
                         $buttons[] = "<button class='btn btn-danger rounded'>Pending</button>";
@@ -71,9 +70,9 @@ include("includes/userheader.php");
                     } else {
                         $count = 0;
                         foreach ($statuses as $status_id => $status_name) {
-                            if ($result['status'] >= $status_id) {
+                            if ($data['status'] >= $status_id) {
                                 $buttons[] = "<button class='btn btn-danger rounded'>$status_name</button>";
-                                if ($count < $result['status'] - 1) { // Check if it's not the last status
+                                if ($count < $data['status'] - 1) { // Check if it's not the last status
                                     $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
                                 }
                                 $count++;
@@ -96,12 +95,10 @@ include("includes/userheader.php");
 include("footer.php");
 ?>
 
-
-
 <script>
     function printParcelStatus() {
-        var status = "<?php echo $result['status']; ?>";
-        var trackId = "<?php echo $result['track_id']; ?>";
+        var status = "<?php echo $data['status']; ?>";
+        var trackId = "<?php echo $data['track_id']; ?>";
         var statuses = <?php echo json_encode($statuses); ?>;
 
         var statusText = "";
@@ -110,7 +107,7 @@ include("footer.php");
         statusText += "<h1 style='color: red;'>CMS</h1>";
         statusText += "</div>";
         statusText += "<h2 style='text-align: center; color: green;'>Parcel Status:</h2>"; // added green color to the heading
-        statusText += "<h3 style='text-align: center; color: red;'>Track ID: " + trackId + "</h3>"; // added orange color to the track ID
+        statusText += "<h3 style='text-align: center; color:red;'>Track ID: " + trackId + "</h3>"; // added orange color to the track ID
         if (status == 5) {
             statusText += "<button style='display: block; margin: 0 auto; color: black; border-radius: 20px;'>Received</button><br>";
             statusText += "<br><span class='animated-arrow' style='color: red; font-size: 24px; display: block; margin: 0 auto;'>&#8595;</span><br>";

@@ -1,23 +1,38 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>C M S</title>
+    <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width
     , initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <link rel="icon" type="image/png" href="img/logo.png" />
 
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -33,69 +48,73 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
+
 <?php
-session_start();
-
-
-// connection 
 include("connection.php");
 
-?>
-<!-- if (isset($_POST['submit'])) {
-  $sql = "SELECT * FROM users WHERE uname=:uname AND upwd=:upwd";
-  $stmt = $conn->prepare($sql);
-  $stmt->bindParam(':uname', $_POST['uname']);
-  $stmt->bindParam(':upwd', $_POST['upwd']);
-  $stmt->execute();
-  $data = $stmt->fetch();
+// Check for errors
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  if (!empty($data)) {
-    $_SESSION['user_role'] = $data['role'];
-    $_SESSION['username'] = $data['uname'];
-
-    header('location:dashboard.php');
-  } else {
-    $error = "Error: Username or password is incorrect";
-  }
-} -->
-
-
-
-<?php
+$error = ''; // Initialize an empty error variable
 
 if (isset($_POST['submit'])) {
-  $sql = "SELECT * FROM users WHERE uname=:uname AND upwd=:upwd";
-  $stmt = $conn->prepare($sql);
-  $stmt->bindParam(':uname', $_POST['uname']);
-  $stmt->bindParam(':upwd', $_POST['upwd']);
+  $uname = $_POST['uname'];
+  $uemail = $_POST['uemail'];
+
+  // Input validation
+  if (!preg_match('/^[a-zA-Z0-9_]+$/', $uname)) {
+    $error = 'Invalid username!';
+    exit;
+  }
+  if (!filter_var($uemail, FILTER_VALIDATE_EMAIL)) {
+    $error = 'Invalid email!';
+    exit;
+  }
+
+  $stmt = $conn->prepare("SELECT * FROM users WHERE uname = :uname AND uemail = :uemail");
+  $stmt->bindParam(':uname', $uname);
+  $stmt->bindParam(':uemail', $uemail);
   $stmt->execute();
-  $data = $stmt->fetch();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  if (!empty($data)) {
-    $_SESSION['user_role'] = $data['role'];
-    $_SESSION['username'] = $data['uname'];
+  if (!empty($result)) {
+    $data = $result[0];
 
-    header('location:dashboard.php');
+    // Generate a random password reset token
+    $token = bin2hex(random_bytes(16));
+
+    // Update the user's password reset token in the database
+    $stmt = $conn->prepare("UPDATE users SET password_reset_token = :token WHERE uname = :uname");
+    $stmt->bindParam(':token', $token);
+    $stmt->bindParam(':uname', $uname);
+    $stmt->execute();
+
+    // Store the token in the session
+    $_SESSION['password_reset_token'] = $token;
+    $_SESSION['uname'] = $uname;
+
+    // Regenerate the session ID to prevent session fixation attacks
+    session_regenerate_id();
+
+    // Redirect to the reset password page
+    header('Location: reset_password.php');
+    exit;
   } else {
-    $error = "Error: Username or password is incorrect";
+    $error = 'Invalid username or email!';
   }
 }
-
 ?>
 
-
-
-
-
-<!-- Blank Start -->
-<div class="container-fluid ">
+<!-- Forget Password Form -->
+<div class="container mt-5 ">
   <div class="row bg-light rounded justify-content-center mx-0 m-5">
   <div class="col-lg-6 col-md-6 col-sm-12">
+      <img src="img/logo.png" alt="" width="300px" class="mx-auto d-block"> 
+      
+      <h2 class="text-center">Forget Password</h2>
 
-      <img src="img/logo.png" alt="" width="300px" class="mx-auto d-block">        <h1 class="text-center text-primary">WELCOME TO CMS</h1>
-        <h2 class="text-center mt-3">Login form</h2>
-
-        <!-- show error button  -->
+      
+      <!-- show error button  -->
         <div class="d-flex justify-content-center ">
           <?php if (isset($error) && !empty($error)): ?>
             <h6 class="btn btn-danger" id="error">
@@ -109,54 +128,18 @@ if (isset($_POST['submit'])) {
           <?php endif; ?>
         </div>
 
-
-        <form method="post">
-
-          <div class="mb-3 mt-3 mx-auto w-75">
-            <label for="email">Username:</label>
-            <input type="text" class="form-control" id="email" placeholder="Enter username" name="uname" required>
-          </div>
-          <div class="mb-3 mx-auto w-75">
-            <label for="pwd">Password:</label>
-            <div class="input-group">
-              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="upwd" required>
-              <div class="input-group-append">
-                <span class="input-group-text" onclick="togglePassword()">
-                  <i id="pwd-icon" class="fas fa-eye-slash" style="font-size: 24px;"></i>
-                </span>
-              </div>
-
-            </div>
-            <button type="submit" name="submit" class="btn btn-danger mt-3">Login</button>
-            <a href="registration.php" class="btn btn-danger mt-3">Register</a>
-            <p class="mt-3">Forget Password? <a href="forget_password.php">Click here</a></p>
-          </div>
-
-        </form>
-      </div>
+  <form method="post">
+    <div class="mb-3">
+      <label for="uname">Username:</label>
+      <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
     </div>
-  </div>
+    <div class="mb-3">
+      <label for="uemail">Email:</label>
+      <input type="email" class="form-control" id="uemail" placeholder="Enter email" name="uemail" required>
+    </div>
+    <button type="submit" name="submit" class="btn btn-danger">Submit</button>
+  </form>
 </div>
-<!-- Blank End -->
-
-<script>
-  function togglePassword() {
-    var pwdInput = document.getElementById("pwd");
-    var pwdIcon = document.getElementById("pwd-icon");
-
-    if (pwdInput.type === "password") {
-      pwdInput.type = "text";
-      pwdIcon.className = "fas fa-eye";
-    } else {
-      pwdInput.type = "password";
-      pwdIcon.className = "fas fa-eye-slash";
-    }
-  }
-</script>
-
-
-    <!-- JavaScript Libraries -->
-
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

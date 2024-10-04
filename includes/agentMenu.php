@@ -5,82 +5,62 @@ include("includes/agentheader.php");
 include("connection.php");
 ?>
 
-<!-- total returned parcels -->
 <?php
+// Total returned parcels
 $stmt = $conn->prepare("SELECT COUNT(*) as total_returned_parcels
 FROM parcels
 INNER JOIN status ON parcels.status = status.id
-WHERE status.name = 'returned' AND parcels.agent_name = ?");
-$stmt->bind_param("s", $_SESSION['username']);
+WHERE status.name = 'returned' AND parcels.agent_name = :username");
+$stmt->bindParam(':username', $_SESSION['username']);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $total_returned_parcels = $row['total_returned_parcels'];
-} ?>
+$total_returned_parcels = $result['total_returned_parcels'] ?? 0;
 
-<!-- total delivered parcels -->
-<?php
+// Total delivered parcels
 $stmt = $conn->prepare("SELECT COUNT(*) as total_delivered_parcels
 FROM parcels
 INNER JOIN status ON parcels.status = status.id
-WHERE status.name = 'delivered' AND parcels.agent_name = ?");
-$stmt->bind_param("s", $_SESSION['username']);
+WHERE status.name = 'delivered' AND parcels.agent_name = :username");
+$stmt->bindParam(':username', $_SESSION['username']);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $total_delivered_parcels = $row['total_delivered_parcels'];
-} ?>
-<!-- total pending parcels -->
-<?php
+$total_delivered_parcels = $result['total_delivered_parcels'] ?? 0;
+
+// Total pending parcels
 $stmt = $conn->prepare("SELECT COUNT(*) as total_pending_parcels
 FROM parcels
 INNER JOIN status ON parcels.status = status.id
-WHERE status.name = 'pending' AND parcels.agent_name = ?");
-$stmt->bind_param("s", $_SESSION['username']);
+WHERE status.name = 'pending' AND parcels.agent_name = :username");
+$stmt->bindParam(':username', $_SESSION['username']);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $total_pending_parcels = $row['total_pending_parcels'];
-} ?>
+$total_pending_parcels = $result['total_pending_parcels'] ?? 0;
 
-<!-- total received parcels -->
-<?php
+// Total received parcels
 $stmt = $conn->prepare("SELECT COUNT(*) as total_receive_parcels
 FROM parcels
 INNER JOIN status ON parcels.status = status.id
-WHERE status.name = 'received' AND parcels.agent_name = ?");
-$stmt->bind_param("s", $_SESSION['username']);
+WHERE status.name = 'received' AND parcels.agent_name = :username");
+$stmt->bindParam(':username', $_SESSION['username']);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $total_receive_parcels = $row['total_receive_parcels'];
-} ?>
+$total_receive_parcels = $result['total_receive_parcels'] ?? 0;
 
-<!-- total ON THE WAY parcels -->
-<?php
+// Total ON THE WAY parcels
 $stmt = $conn->prepare("SELECT COUNT(*) as total_onway_parcels
 FROM parcels
-        INNER JOIN status ON parcels.status = status.id
-        WHERE status.name = 'on the way' AND parcels.agent_name = ?");
-$stmt->bind_param("s", $_SESSION['username']);
+INNER JOIN status ON parcels.status = status.id
+WHERE status.name = 'on the way' AND parcels.agent_name = :username");
+$stmt->bindParam(':username', $_SESSION['username']);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $total_onway_parcels = $row['total_onway_parcels'];
-} ?>
-
-
-
+$total_onway_parcels = $result['total_onway_parcels'] ?? 0;
+?>
 <!-- Blank Start -->
 <div class="container">
     <div class="row min-vh-100 bg-light rounded align-items-center justify-content-center mx-0 m-5">

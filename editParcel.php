@@ -1,5 +1,6 @@
 <?php
 session_start();
+// Connection
 include("connection.php");
 include("header.php");
 
@@ -19,23 +20,34 @@ if (isset($_POST['submit'])) {
     $id = $_GET['id'];
 
     // Prepare the update query
-    $stmt = $conn->prepare("UPDATE parcels SET track_id = ?, sender_name = ?, sender_contact =?, sender_address = ?, date = ?, recipent_name = ?, recipent_address = ?, recipent_contact = ?, weight = ?, price = ?, status = ? WHERE id = ?");
-    $stmt->bind_param("sssssssssssi", $trackid, $sname, $saddress, $scontact, $date, $recipentname, $recipentaddress, $recipentcontact, $weight, $price, $status, $id);
+    $stmt = $conn->prepare("UPDATE parcels SET track_id = :track_id, sender_name = :sender_name, sender_contact = :sender_contact, sender_address = :sender_address, date = :date, recipent_name = :recipent_name, recipent_address = :recipent_address, recipent_contact = :recipent_contact, weight = :weight, price = :price, status = :status WHERE id = :id");
+    $stmt->bindParam(":track_id", $trackid);
+    $stmt->bindParam(":sender_name", $sname);
+    $stmt->bindParam(":sender_contact", $scontact);
+    $stmt->bindParam(":sender_address", $saddress);
+    $stmt->bindParam(":date", $date);
+    $stmt->bindParam(":recipent_name", $recipentname);
+    $stmt->bindParam(":recipent_address", $recipentaddress);
+    $stmt->bindParam(":recipent_contact", $recipentcontact);
+    $stmt->bindParam(":weight", $weight);
+    $stmt->bindParam(":price", $price);
+    $stmt->bindParam(":status", $status);
+    $stmt->bindParam(":id", $id);
     $stmt->execute();
 
     // Redirect to the users list page
-    echo '<script>window.location.href = "parcels.php";</script>';
+    echo '<script>window.location.href = "parcelslist.php";</script>';
     exit;
 }
 
 $parcelId = $_GET['id'];
 
-$stmt = $conn->prepare("SELECT * FROM parcels WHERE id = ?");
-$stmt->bind_param("i", $parcelId);
+$stmt = $conn->prepare("SELECT * FROM parcels WHERE id = :id");
+$stmt->bindParam(":id", $parcelId);
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$parcelData = $result->fetch_assoc();
+$parcelData = $result;
 ?>
 
 

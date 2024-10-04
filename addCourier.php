@@ -2,10 +2,12 @@
 session_start();
 ?>
 <?php
+include("connection.php");
+?>
+
+<?php
 
 // remaining code in sendMessageTrackId
-
-include('connection.php');
 
 // if (isset($_POST['submit'])) {
 //     date_default_timezone_set('Asia/karachi');

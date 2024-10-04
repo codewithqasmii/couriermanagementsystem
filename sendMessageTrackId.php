@@ -1,6 +1,8 @@
 <?php
-include('connection.php');
-
+// connection 
+include("connection.php");
+?>
+<?php
 if (isset($_POST['submit'])) {
     date_default_timezone_set('Asia/karachi');
 
@@ -10,7 +12,7 @@ if (isset($_POST['submit'])) {
         $track_id = rand(1000000, 9999999); // 10-digit random number
 
         // Define the SQL query with placeholders
-        $stmt = $conn->prepare("INSERT INTO parcels (track_id, sender_name, sender_address, sender_contact, recipent_name, recipent_address, recipent_contact, weight, price, status, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO parcels (track_id, sender_name, sender_address, sender_contact, recipent_name, recipent_address, recipent_contact, weight, price, status, date, agent_name) VALUES (:track_id, :sender_name, :sender_address, :sender_contact, :recipent_name, :recipent_address, :recipent_contact, :weight, :price, :status, :date, :agent_name)");
 
         // Define the variables
         $track_id = $track_id;
@@ -23,15 +25,27 @@ if (isset($_POST['submit'])) {
         $weight = $_POST['weight'];
         $price = $_POST['price'];
         $status = $_POST['status'];
+        $added_by = 'admin'; // Hard coded value 'admin'
         $date = date('Y-m-d h:i:s');
 
         // Bind the variables to the placeholders
-        $stmt->bind_param("sssssssssss", $track_id, $sender_name, $sender_address, $sender_contact, $recipent_name, $recipent_address, $recipent_contact, $weight, $price, $status, $date);
+        $stmt->bindParam(':track_id', $track_id);
+        $stmt->bindParam(':sender_name', $sender_name);
+        $stmt->bindParam(':sender_address', $sender_address);
+        $stmt->bindParam(':sender_contact', $sender_contact);
+        $stmt->bindParam(':recipent_name', $recipent_name);
+        $stmt->bindParam(':recipent_address', $recipent_address);
+        $stmt->bindParam(':recipent_contact', $recipent_contact);
+        $stmt->bindParam(':weight', $weight);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':agent_name', $added_by);
 
         // Execute the query
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             // Send SMS using an SMS gateway API
             $message = "Your track ID is $track_id";
             // Replace with your SMS gateway API credentials and function
@@ -40,7 +54,6 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-
 
 <?php
 use Infobip\Configuration;
