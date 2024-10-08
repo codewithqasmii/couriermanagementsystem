@@ -80,7 +80,7 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar">
             <nav class="navbar bg-light navbar-light">
                 <a href="" class="navbar-brand mx-4 mb-3">
                     <img src="img/logo.png" alt="" class="logo" style="width: 150px; margin-top:-30px">
@@ -104,9 +104,19 @@
                 </div>
 
                 <div class="navbar-nav w-100">
-                    <a href="dashboard.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'dashboard.php') echo 'active'; ?>"> <i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-
-                    <!-- <span class="nav-item nav-link" style=" cursor: pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-secret"></i>Add Agent</span> -->
+                    <a href="dashboard.php"
+                        class="nav-item nav-link 
+         <?php if (
+                basename($_SERVER['PHP_SELF']) == 'dashboard.php' ||
+                basename($_SERVER['PHP_SELF']) == 'delivered.php' ||
+                basename($_SERVER['PHP_SELF']) == 'ontheway.php' ||
+                basename($_SERVER['PHP_SELF']) == 'recieved.php' ||
+                basename($_SERVER['PHP_SELF']) == 'userlist.php' ||
+                basename($_SERVER['PHP_SELF']) == 'pending.php'
+            )
+                echo 'active'; ?>">
+                        <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle <?php if (basename($_SERVER['PHP_SELF']) == 'addbranch.php' || basename($_SERVER['PHP_SELF']) == 'viewBranch.php' || basename($_SERVER['PHP_SELF']) == 'branchAgent.php' || basename($_SERVER['PHP_SELF']) == 'addCity.php')  echo 'active'; ?>" data-bs-toggle="dropdown"><i class="fa fa-code-branch"></i>Branch</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -117,62 +127,12 @@
                         </div>
                     </div>
 
-                    <!-- <a href="addbranch.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'addbranch.php') echo 'active'; ?>"><i class="fa fa-code-branch"></i></i>Add Branch</a> -->
                     <a href="agentRegister.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'agentRegister.php') echo 'active'; ?>"><i class="fa fa-user-secret"></i></i>Add Agent</a>
-                    <a href="user.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'user.php') echo 'active'; ?>"><i class="fa fa-users"></i></i>Agents/Users</a>
+                    <a href="agent.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'agent.php') echo 'active'; ?>"><i class="fa fa-users"></i></i>Agents</a>
                     <a href="getAgentDetail.php" class="nav-item nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'getAgentDetail.php') echo 'active'; ?>"><i class="fa fa-boxes"></i></i>Agents Parcels</a>
-                    <!-- <a href="parcels.php" class="nav-item nav-link "><i class="fa fa-users"></i></i>Parcles</a> -->
-
-                    <!-- Agent register Modal -->
-                    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form method="post">
-                                        <h2 class="text-center text-black">Registration form</h2>
-                                        <div class="mb-3 mt-3">
-                                            <label for="email" class="text-black">Username:</label>
-                                            <input type="text" class="form-control" id="email" placeholder="Enter username" name="uname" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="pwd" class="text-black">Password:</label>
-                                            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="upwd" required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="pwd" class="text-black">Role:</label>
-                                            <select class="form-control" name="role" required>
-                                                <option value="" disabled selected>Select Role</option>
-                                                <option value="agent">Agent</option>
-                                            </select>
-                                        </div>
-
-                                        <button type="submit" name="submit" class="btn btn-primary">Register</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
 
 
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Category</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="addCategory.php" class="dropdown-item">Add</a>
-                            <a href="viewCategory.php" class="dropdown-item">View</a>
-                        </div>
-                    </div> -->
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle <?php if (basename($_SERVER['PHP_SELF']) == 'addCourier.php' || basename($_SERVER['PHP_SELF']) == 'parcelslist.php') echo 'active'; ?>" data-bs-toggle="dropdown"><i class="fa fa-boxes"></i>Courier</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -191,85 +151,18 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <!-- <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-dark mb-0">CMS</h2>
-                </a>
+                </a> -->
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars text-danger"></i>
                 </a>
 
-                <!-- <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form> -->
-                <div class=" mx-auto">
-                    <h2 class="text-danger text-center" style="text-align: center;"> COURIER -- MANAGEMENT -- SYSTEM</h2>
+                <div class="mx-auto ">
+                    <h3 class="text-danger text-center"> COURIER -- MANAGEMENT -- SYSTEM</h3>
                 </div>
                 <div class="navbar-nav align-items-center ms-auto">
 
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -283,11 +176,10 @@
                             ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-danger border-0 rounded-0 rounded-bottom m-0">
-                            <!-- <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a> -->
                             <a href="logout.php" class="dropdown-item hover:text-white bg-transparent">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
+
             <!-- Navbar End -->

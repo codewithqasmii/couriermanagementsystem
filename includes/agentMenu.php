@@ -78,7 +78,7 @@ $total_onway_parcels = $result['total_onway_parcels'] ?? 0;
 
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box bg-light shadow-sm border p-3">
+                            <div class="small-box shadow-sm border p-3" style="background-color: rgba(255, 99, 132, 0.2);">
                                 <div class="inner">
                                     <h2 class="text-primary"> <span class="text-danger">Total</span> Received</h2>
                                     <?php echo "<h3 class='text-danger'>{$total_receive_parcels}  <span class='text-success'>Received</span></h3>"; ?>
@@ -90,7 +90,7 @@ $total_onway_parcels = $result['total_onway_parcels'] ?? 0;
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box bg-light shadow-sm border p-3">
+                            <div class="small-box shadow-sm border p-3" style="background-color: rgba(54, 162, 235, 0.2);">
                                 <div class="inner">
                                     <h2 class="text-primary"><span class="text-danger">Total</span> On the Way</h2>
                                     <?php echo "<h3 class='text-danger'>{$total_onway_parcels}  <span class='text-success'>On the Way</span></h3>"; ?>
@@ -102,7 +102,7 @@ $total_onway_parcels = $result['total_onway_parcels'] ?? 0;
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box bg-light shadow-sm border p-3">
+                            <div class="small-box shadow-sm border p-3" style="background-color: rgba(255, 206, 86, 0.2);">
                                 <div class="inner">
                                     <h2 class="text-primary"> <span class="text-danger">Total</span> Delivered</h2>
                                     <?php echo "<h3 class='text-danger'>{$total_delivered_parcels} <span class='text-success'>Delivered</span></h3>"; ?>
@@ -119,7 +119,7 @@ $total_onway_parcels = $result['total_onway_parcels'] ?? 0;
 
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box bg-light shadow-sm border p-3">
+                            <div class="small-box shadow-sm border p-3" style="background-color: rgba(75, 192, 192, 0.2);">
                                 <div class="inner">
                                     <h2 class="text-primary"> <span class="text-danger">Total</span> Pending</h2>
                                     <?php echo "<h3 class='text-danger'>{$total_pending_parcels}  <span class='text-success'>Pending</span></h3>"; ?>
@@ -131,7 +131,7 @@ $total_onway_parcels = $result['total_onway_parcels'] ?? 0;
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box bg-light shadow-sm border p-3">
+                            <div class="small-box shadow-sm border p-3" style="background-color: rgba(153, 102, 255, 0.2);">
                                 <div class="inner">
                                     <h2 class="text-primary"><span class="text-danger">Total</span> Returned</h2>
                                     <?php echo "<h3 class='text-danger'>{$total_returned_parcels}  <span class='text-success'>Returned</span></h3>"; ?>

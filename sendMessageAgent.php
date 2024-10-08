@@ -76,7 +76,7 @@ if (isset($_POST["track_id"]) && isset($_POST["sendercontact"])) {
     // $apiKey = "b23b9a38e327a4afa16676fff6e07adf-8c428a9c-a50d-4efc-ae7d-90063ff2f8ae";
 
     $apiURL = "51yvyx.api.infobip.com";
-    $apiKey = "dc66f6b9a279eebacdbd28a9c4eb0da8-720ebef1-8404-405e-b5de-e915188cded9";
+    $apiKey = "1c00e175d4d7c126a0cc5848988212ca-eb24309c-312c-4def-b712-c116362c6c0d";
 
     try {
         $configuration = new Configuration(host: $apiURL, apiKey: $apiKey);

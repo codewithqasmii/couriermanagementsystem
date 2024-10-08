@@ -11,31 +11,38 @@ include("header.php");
 ?>
 
 <?php
-
 if (isset($_POST['submit'])) {
     $b_name = $_POST['b_name'];
     $b_address = $_POST['b_address'];
     $b_phone = $_POST['b_phone'];
     $b_city = $_POST['b_city'];
 
-    // Insert data into the "branch" table
-    try {
-        $stmt = $conn->prepare("INSERT INTO branch (b_name, b_address, b_phone, b_city) VALUES ( :b_name, :b_address, :b_phone, :b_city)");
-        $stmt->bindParam(':b_name', $b_name);
-        $stmt->bindParam(':b_address', $b_address);
-        $stmt->bindParam(':b_phone', $b_phone);
-        $stmt->bindParam(':b_city', $b_city);
-        $stmt->execute();
+    // Check if branch name already exists
+    $stmt = $conn->prepare("SELECT b_name FROM branch WHERE b_name = :b_name");
+    $stmt->bindParam(':b_name', $b_name);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
 
-        // Set a variable to hold the success message
-        $success = "Branch registered successfully!";
-    } catch (PDOException $e) {
-        $error = "Error registering branch: " . $e->getMessage();
+    if ($result) {
+        $error = "Branch name already exists!";
+    } else {
+        // Insert data into the "branch" table
+        try {
+            $stmt = $conn->prepare("INSERT INTO branch (b_name, b_address, b_phone, b_city) VALUES ( :b_name, :b_address, :b_phone, :b_city)");
+            $stmt->bindParam(':b_name', $b_name);
+            $stmt->bindParam(':b_address', $b_address);
+            $stmt->bindParam(':b_phone', $b_phone);
+            $stmt->bindParam(':b_city', $b_city);
+            $stmt->execute();
+
+            // Set a variable to hold the success message
+            $success = "Branch registered successfully!";
+        } catch (PDOException $e) {
+            $error = "Error registering branch: " . $e->getMessage();
+        }
     }
 }
-
 ?>
-
 <!-- Blank Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row vh-100 bg-light rounded justify-content-center mx-0">
@@ -62,20 +69,21 @@ if (isset($_POST['submit'])) {
                 </div>
 
                 <div class="form-group mt-3">
-    <label for="city">City:</label>
-    <select class="form-control" name="b_city" id="city" required>
-        <option value="" disabled selected>Select City</option>
-        <?php
-        $sql = "SELECT DISTINCT name FROM city";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        foreach ($result as $row) {
-            echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
-        }
-        ?>
-    </select>
-</div>                          <div class="form-group mt-3">
+                    <label for="city">City:</label>
+                    <select class="form-control" name="b_city" id="city" required>
+                        <option value="" disabled selected>Select City</option>
+                        <?php
+                        $sql = "SELECT DISTINCT name FROM city";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetchAll();
+                        foreach ($result as $row) {
+                            echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group mt-3">
                     <label>Branch Name:</label>
                     <input class="form-control" type="text" name="b_name" placeholder="Enter Branch Name" require pattern="(?=.*[a-zA-Z0-9])[a-zA-Z0-9 ]{5,}" title="minimum 5 characters">
                 </div>

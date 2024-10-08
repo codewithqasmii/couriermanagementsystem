@@ -47,45 +47,45 @@ include("header.php");
                 </div>
             </form>
             <?php if (isset($_GET['search'])): ?>
-                <?php
-                $search = $_GET['search'];
-                $stmt = $conn->prepare("SELECT * FROM parcels WHERE track_id LIKE :track_id");
-                $stmt->bindParam(':track_id', $search);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $data = $result[0];
-                if ($data) {
-                    echo "<h2 style='margin-top: 50px;'>Parcel Status:</h2>";
-                    echo "Track ID: " . $data['track_id'] . "<br>";
-                    echo "<br />";
+    <?php
+    $search = $_GET['search'];
+    $stmt = $conn->prepare("SELECT * FROM parcels WHERE track_id LIKE :track_id");
+    $stmt->bindParam(':track_id', $search);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (!empty($result)) { // Check if the result array is not empty
+        $data = $result[0];
+        echo "<h2 style='margin-top: 50px;'>Parcel Status:</h2>";
+        echo "Track ID: " . $data['track_id'] . "<br>";
+        echo "<br />";
 
-                    $statuses = array(1 => 'Received', 2 => 'On the way', 3 => 'Pending', 4 => 'Delivered', 5 => 'Returned');
-                    $buttons = array();
-                    if ($data['status'] == 5) { // If status is equal to 5 (Returned)
-                        $buttons[] = "<button class='btn btn-danger rounded'>Received</button>";
+        $statuses = array(1 => 'Received', 2 => 'On the way', 3 => 'Pending', 4 => 'Delivered', 5 => 'Returned');
+        $buttons = array();
+        if ($data['status'] == 5) { // If status is equal to 5 (Returned)
+            $buttons[] = "<button class='btn btn-danger rounded'>Received</button>";
+            $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
+            $buttons[] = "<button class='btn btn-danger rounded'>Pending</button>";
+            $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
+            $buttons[] = "<button class='btn btn-danger rounded'>Returned</button>";
+        } else {
+            $count = 0;
+            foreach ($statuses as $status_id => $status_name) {
+                if ($data['status'] >= $status_id) {
+                    $buttons[] = "<button class='btn btn-danger rounded'>$status_name</button>";
+                    if ($count < $data['status'] - 1) { // Check if it's not the last status
                         $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
-                        $buttons[] = "<button class='btn btn-danger rounded'>Pending</button>";
-                        $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
-                        $buttons[] = "<button class='btn btn-danger rounded'>Returned</button>";
-                    } else {
-                        $count = 0;
-                        foreach ($statuses as $status_id => $status_name) {
-                            if ($data['status'] >= $status_id) {
-                                $buttons[] = "<button class='btn btn-danger rounded'>$status_name</button>";
-                                if ($count < $data['status'] - 1) { // Check if it's not the last status
-                                    $buttons[] = "<br><span class='animated-arrow' style='color: red; font-size: 24px; transform: scale(1.5);'>&#8595;</span><br>";
-                                }
-                                $count++;
-                            }
-                        }
                     }
-                    echo implode('', $buttons);
-                } else {
-                    echo "<br />";
-                    echo "<span style='color: red; margin-top: 30px;'>No parcel found with track ID " . $search . "</span>";
+                    $count++;
                 }
-                ?>
-            <?php endif; ?>
+            }
+        }
+        echo implode('', $buttons);
+    } else {
+        echo "<br />";
+        echo "<span style='color: red; margin-top: 30px;'>No parcel found with track ID " . $search . "</span>";
+    }
+    ?>
+<?php endif; ?>
         </div>
     </div>
 </div>

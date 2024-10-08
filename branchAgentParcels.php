@@ -41,13 +41,17 @@ if (count($agent_parcels) > 0) {
     <div class="container-fluid pt-4 px-4">
         <div class="row vh-100 bg-light justify-content-center mx-0">
             <div class="col-md-12 text-center ">
-                <h1 class="text-center text-danger mt-5">Branch Detail
-                    </h1>
-                    <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
+                <h1 class="text-center text-danger mt-5">Branch Detail </h1>
+                <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
 
-                <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>";?></h3>
-                <table class="table table-striped">
+                <!-- <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>"; ?></h3> -->
+                <table class="table table-striped" id="table">
                     <thead>
+                        <tr>
+                            <td colspan="7">
+                                <h3 class="text-danger mt-5"><?php echo "$branch_name Branch"; ?></h3>
+                            </td>
+                        </tr>
                         <tr>
                             <!-- <th>Branch Name</th> -->
                             <th>Agent Name</th>
@@ -84,35 +88,83 @@ if (count($agent_parcels) > 0) {
                         ?>
                     </tbody>
                 </table>
+                <button class="btn btn-success float-end" onclick="downloadExcel()">Download Excel</button>
+
 
             </div>
         </div>
     </div>
     <!-- Blank End -->
 
-    <?php
-    include("footer.php");
+
+
+
+<?php
 } else {
     ?>
     <!-- Blank Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="row vh-100 bg-light justify-content-center mx-0">
             <div class="col-md-12 text-center ">
-                <h1 class="text-center text-danger mt-5">Branch Detail
-                    </h1>
-                    <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
+                <h1 class="text-center text-danger mt-5">Branch Detail </h1>
+                <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
 
-                <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>";?></h3>
-                <p class="text-danger mt-5">No parcels found in this branch.</p>
-
+                <!-- <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>"; ?></h3> -->
+                <table class="table table-striped" id="table">
+                    <thead>
+                        <tr>
+                            <td colspan="7">
+                                <h3 class="text-danger mt-5"><?php echo "$branch_name Branch"; ?></h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- <th>Branch Name</th> -->
+                            <th>Agent Name</th>
+                            <th>Total Parcels</th>
+                            <th>Total Delivered</th>
+                            <th>Total Received</th>
+                            <th>Total On the Way</th>
+                            <th>Total Returned</th>
+                            <th>Total Pending</th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                            <p class="text-danger mt-5">No Agents / Parcels found for this branch.</p>
             </div>
         </div>
     </div>
     <!-- Blank End -->
-
-
-
-<?php
+    <?php
 }
+
+
 include("footer.php")
 ?>
+
+
+<script>
+    function downloadExcel() {
+        var table = document.getElementById('table');
+        var rows = table.rows;
+        var csv = '';
+        for (var i = 0; i < rows.length; i++) {
+            var row = '';
+            var cols = rows[i].cells;
+            for (var j = 0; j < cols.length; j++) {
+                if (cols[j].tagName !== 'H3') {
+                    row += cols[j].textContent + ',';
+                }
+            }
+            csv += row + '\n';
+        }
+        var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+        var link = document.createElement('a');
+        link.href = csvData;
+        link.target = '_blank';
+        link.download = 'branch_details_' + new Date().toISOString().replace(/:/g, '-') + '.csv';
+        link.click();
+    }
+</script>

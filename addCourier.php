@@ -65,12 +65,12 @@ include("header.php")
         <div class="col-12">
             <div class="container mt-3">
                 <div class="container mt-3 w-100 align-middle">
-                    <h2 class="text-center text-primary">Add Courier</h2>
+                    <h2 class="text-center text-danger">Add Courier</h2>
                     <form action="sendMessageTrackId.php" method="post">
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Date:</label>
-                                <input type="date" class="form-control" placeholder="Date" name="date">
+                                <input type="date" class="form-control" placeholder="Date" name="date" required>
                             </div>
                             <div class="col-12 col-md-4">
                                 <!-- <label>Refrence Number:</label> -->
@@ -78,36 +78,38 @@ include("header.php")
                             </div>
 
                         </div>
-                        <h3 class="mt-3 text-primary">Sender Details</h3>
+                        <h3 class="mt-3 text-danger">Sender Details</h3>
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Sender Name</label>
-                                <input type="text" class="form-control" placeholder="Sender Name" name="sendername">
+                                <input type="text" class="form-control" placeholder="Sender Name" name="sendername" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <label>Sender Address:</label>
-                                <input type="text" class="form-control" placeholder="Sender Address" name="senderaddress">
+                                <input type="text" class="form-control" placeholder="Sender Address" name="senderaddress" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label>Sender Contact</label>
-                                <input type="number" class="form-control" placeholder="Sender Contact" name="sendercontact">
+                                <input type="tel" class="form-control" placeholder="Sender Contact" name="sendercontact" required minlength="10" title="minimum 10 digits" >
+                                <!-- <input class="form-control" type="tel" name="b_phone" placeholder="Enter Branch Phone Number" required minlength="10" title="minimum 10 digits"> -->
                             </div>
                         </div>
-                        <h3 class="mt-3 text-primary">Recipent Details</h3>
+                        <h3 class="mt-3 text-danger">Recipent Details</h3>
 
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Recipent Name:</label>
-                                <input type="text" class="form-control" placeholder="Recipent Name" name="recipentname">
+                                <input type="text" class="form-control" placeholder="Recipent Name" name="recipentname" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label">Recipent Address</label>
-                                <input type="text" class="form-control" placeholder="Recipent Name" name="recipentaddress">
+                                <input type="text" class="form-control" placeholder="Recipent Name" name="recipentaddress" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label>Recipent Contact:</label>
-                                <input type="number" class="form-control" placeholder="Recipent Contact" name="recipentcontact">
+                                <!-- <input type="tel" class="form-control" placeholder="Sender Contact" name="sendercontact" required minlength="10" title="minimum 10 digits" > -->
+                                <input type="tel" class="form-control" placeholder="Recipent Contact" name="recipentcontact" required minlength="10" title="minimum 10 digits">
                             </div>
 
                         </div>
@@ -116,12 +118,12 @@ include("header.php")
                         <div class="row mt-3">
                             <div class="col-12 col-md-4">
                                 <label>Weight</label>
-                                <input type="text" class="form-control" placeholder="Weight" name="weight">
+                                <input type="text" class="form-control" placeholder="Weight" name="weight" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <label>Price:</label>
-                                <input type="number" class="form-control" placeholder="Price" name="price">
+                                <input type="text" class="form-control" placeholder="Price" name="price" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="pwd">Status:</label>
@@ -137,7 +139,7 @@ include("header.php")
                             </div>
 
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3">Add Courier</button>
+                        <button type="submit" name="submit" class="btn btn-danger mt-3">Add Courier</button>
 
 
 

@@ -13,13 +13,30 @@ include("includes/agentheader.php");
 <div class="container">
     <div class="row min-vh-100 bg-light rounded justify-content-center mx-0 m-5">
         <div class="col-md-12 text-center">
-            <div class="container mt-3">
-                <h2>Parcels List</h2>
-                <!-- Add a search form above the table -->
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+
+        <div>
+    <h1 class="mb-5 mt-4">Parcels List</h1>
+    <div class="mb-5 d-flex justify-content-between">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="mb-4">
+            <!-- form fields here -->
+        </form>
+        <a href="parcelslistAgent.php" class="btn btn-danger">Back</a>
+    </div>
+
+    <div class="d-flex justify-content-around flex-wrap">                
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="mb-4">
                     <input type="text" name="search" placeholder="Search by Track ID">
+                    <select name="status">
+                        <option value="">All Statuses</option>
+                        <option value="1">Recieved</option>
+                        <option value="2">On the Way</option>
+                        <option value="3">Pending</option>
+                        <option value="4">Delivered</option>
+                        <option value="5">Returned</option>
+                    </select>
                     <button type="submit">Search</button>
                 </form>
+
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -34,6 +51,7 @@ include("includes/agentheader.php");
                                 <th>Reciever Contact</th>
                                 <th>Weight</th>
                                 <th>Price</th>
+                                <th>status</th>
                                 <th>Agent</th>
                                 <th>Date</th>
                                 <th>Action</th>
@@ -43,24 +61,34 @@ include("includes/agentheader.php");
                         </thead>
                         <tbody>
 
-
-
                             <?php
-
-// Prepare the statement with a parameter for agent_name
-$stmt = $conn->prepare("SELECT * FROM parcels WHERE agent_name = ?");
-
-// Bind the parameter
-$stmt->bindValue(1, $_SESSION['username']);
-
 // Check if a search parameter is set
-if (isset($_GET['search'])) {
+if (isset($_GET['search']) || isset($_GET['status'])) {
     // If a search parameter is set, modify the SQL query to include the search condition
-    $sql = "SELECT * FROM parcels WHERE agent_name = ? AND track_id LIKE ?";
+    $sql = "SELECT * FROM parcels WHERE agent_name = ?";
+
+    if (isset($_GET['search'])) {
+        $sql .= " AND track_id LIKE ?";
+    }
+
+    if (isset($_GET['status']) && $_GET['status'] != '') {
+        $sql .= " AND status = ?";
+    }
+
     $stmt = $conn->prepare($sql); // Prepare the new statement
-    $search = $_GET['search'];
+
     $stmt->bindValue(1, $_SESSION['username']);
-    $stmt->bindValue(2, '%' . $search . '%'); // Bind the parameters
+
+    $i = 2;
+    if (isset($_GET['search'])) {
+        $search = $_GET['search'];
+        $stmt->bindValue($i, '%' . $search . '%'); // Bind the parameters
+        $i++;
+    }
+
+    if (isset($_GET['status']) && $_GET['status'] != '') {
+        $stmt->bindValue($i, $_GET['status']); // Bind the parameters
+    }
 } else {
     // If no search parameter is set, use the original SQL query
     $sql = "SELECT * FROM parcels WHERE agent_name = ?";
@@ -76,25 +104,26 @@ if ($stmt) {
 } else {
     echo "Error preparing statement";
 }
-                            // Check if any results were found
-                            if (count($result) > 0) {
-                                // Fetch and display the results
-                                $i = 1;
-                                foreach ($result as $data) {
 
+// Check if any results were found
+if (count($result) > 0) {
+    // Fetch and display the results
+    $i = 1;
+    foreach ($result as $data) {
+        ?>
+        <tr>
+            <td><?php echo $i; ?></td>
+            <td><?php echo $data['track_id']; ?></td>
+            <td><?php echo $data['sender_name']; ?></td>
+            <td><?php echo $data['sender_address']; ?></td>
+            <td><?php echo $data['sender_contact']; ?></td>
+            <td><?php echo $data['recipent_name']; ?></td>
+            <td><?php echo $data['recipent_address']; ?></td>
+            <td><?php echo $data['recipent_contact']; ?></td>
+            <td><?php echo $data['weight']; ?></td>
+            <td><?php echo $data['price']; ?></td>
+            <td><?php echo $data['status']; ?></td>
 
-                            ?>
-                                    <tr>
-                                        <td><?php echo $i; ?></td>
-                                        <td><?php echo $data['track_id']; ?></td>
-                                        <td><?php echo $data['sender_name']; ?></td>
-                                        <td><?php echo $data['sender_address']; ?></td>
-                                        <td><?php echo $data['sender_contact']; ?></td>
-                                        <td><?php echo $data['recipent_name']; ?></td>
-                                        <td><?php echo $data['recipent_address']; ?></td>
-                                        <td><?php echo $data['recipent_contact']; ?></td>
-                                        <td><?php echo $data['weight']; ?></td>
-                                        <td><?php echo $data['price']; ?></td>
                                         <td><?php echo $data['agent_name']; ?></td>
                                         <td><?php echo $data['date']; ?></td>
                                         <td>
@@ -127,7 +156,7 @@ if ($stmt) {
                             } else {
                                 // If no results were found, display an alert message
 
-                                echo "<script>alert('No results found for the given track ID. Please enter a correct track ID.'); window.location.href='parcelslistAgent.php';</script>";
+                                echo "<script>alert('No results found for selected ID or Status .'); window.location.href='parcelslistAgent.php';</script>";
                             }
 
 

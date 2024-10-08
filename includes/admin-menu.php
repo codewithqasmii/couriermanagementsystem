@@ -90,16 +90,16 @@ $total_way_parcels = $row['total_onway_parcels'];
                             <canvas id="total-users-chart" width="300px" height="300px"></canvas>
                         </div>
                         <div class="col-12 col-sm-3 col-md-4 col-lg-3 mb-3">
-                        <h6 class="text-danger">Agents</h6>
+                            <h6 class="text-danger">Agents</h6>
                             <canvas id="total-agents-chart" width="300px" height="300px"></canvas>
                         </div>
                         <div class="col-12 col-sm-3 col-md-4 col-lg-3 mb-3">
-                        <h6 class="text-danger">Branches</h6>  
-                        <canvas id="total-branch-chart" width="300px" height="300px"></canvas>
+                            <h6 class="text-danger">Branches</h6>
+                            <canvas id="total-branch-chart" width="300px" height="300px"></canvas>
                         </div>
                         <div class="col-12 col-sm-3 col-md-4 col-lg-3 mb-3">
-                        <h6 class="text-danger">Parcels</h6>    
-                        <canvas id="total-parcels-chart" width="300px" height="300px"></canvas>
+                            <h6 class="text-danger">Parcels</h6>
+                            <canvas id="total-parcels-chart" width="300px" height="300px"></canvas>
                         </div>
                     </div>
 
@@ -278,13 +278,13 @@ $total_way_parcels = $row['total_onway_parcels'];
                                 // labels: ['Received', 'On the Way', 'Delivered', 'Pending', 'Returned'],
                                 // labels: ['Total Parcles'],
                                 datasets: [{
-                                    // label: '',
+                                    label: '',
                                     data: [<?php echo $total_receive_parcels; ?>, <?php echo $total_way_parcels; ?>, <?php echo $total_delivered_parcels; ?>, <?php echo $total_pending_parcels; ?>, <?php echo $total_returned_parcels; ?>],
                                     backgroundColor: [
                                         '#FFC0CB',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
+                                        '#AFDBF5',
+                                        'lightyellow',
+                                        '#ACE1AF',
                                         'rgba(153, 102, 255, 0.2)'
                                     ],
                                     borderColor: [
@@ -314,6 +314,7 @@ $total_way_parcels = $row['total_onway_parcels'];
                     <div class="row">
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
+                            <a href="userlist.php" style="text-decoration: none;">
                             <div class="small-box bg-light shadow-sm border p-3">
                                 <div class="inner">
                                     <h4 class="text-primary"> <span class="text-danger">Total</span> Users</h4>
@@ -323,9 +324,12 @@ $total_way_parcels = $row['total_onway_parcels'];
                                     <i class="fa fa-users text-danger" style="font-size: 50px;"></i>
                                 </div>
                             </div>
+                            </a>
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
+                        <a href="agent.php" style="text-decoration: none;">
+
                             <div class="small-box bg-light shadow-sm border p-3">
                                 <div class="inner">
                                     <h4 class="text-primary"><span class="text-danger">Total</span> Agents</h4>
@@ -335,8 +339,10 @@ $total_way_parcels = $row['total_onway_parcels'];
                                     <i class="fa fa-user-secret text-danger " style="font-size: 50px;"></i>
                                 </div>
                             </div>
+                    </a>
                         </div>
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
+                        <a href="viewbranch.php" style="text-decoration: none;">
                             <div class="small-box bg-light shadow-sm border p-3">
                                 <div class="inner">
                                     <h4 class="text-primary"><span class="text-danger">Total</span> branchs</h4>
@@ -346,9 +352,12 @@ $total_way_parcels = $row['total_onway_parcels'];
                                     <i class="fa fa-code-branch text-danger " style="font-size: 50px;"></i>
                                 </div>
                             </div>
+                    </a>
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
+                        <a href="parcelslist.php" style="text-decoration: none;">
+
                             <div class="small-box bg-light shadow-sm border p-3">
                                 <div class="inner">
                                     <h4 class="text-primary"> <span class="text-danger">Total</span> Parcels</h4>
@@ -359,22 +368,26 @@ $total_way_parcels = $row['total_onway_parcels'];
                                 </div>
                             </div>
                         </div>
+                    </a>
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box shadow-sm border p-3" style="background-color: #FFC0CB;">
-                                <div class="inner">
-                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Received</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_receive_parcels}  <span class='text-success'>Received</span></h3>"; ?>
+                        <a href="recieved.php" style="text-decoration: none;" >
+                            <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                                <div class="small-box shadow-sm border p-3" style="background-color: #FFC0CB;">
+                                    <div class="inner">
+                                        <h4 class="text-primary"> <span class="text-danger">Total</span> Received</h4>
+                                        <?php echo "<h3 class='text-danger'>{$total_receive_parcels}  <span class='text-success'>Received</span></h3>"; ?>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-boxes text-danger" style="font-size: 50px;"></i>
+                                    </div>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-boxes text-danger" style="font-size: 50px;"></i>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
+                    </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                    <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                        <a href="ontheway.php" style="text-decoration: none;">
                             <div class="small-box shadow-sm border p-3" style="background-color: #AFDBF5;">
                                 <div class="inner">
                                     <h4 class="text-primary"><span class="text-danger">Total</span> On the Way</h4>
@@ -384,65 +397,69 @@ $total_way_parcels = $row['total_onway_parcels'];
                                     <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                    <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                        <a href="pending.php" style="text-decoration: none;">
                             <div class="small-box shadow-sm border p-3 " style="background-color: lightyellow;">
                                 <div class="inner">
-                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Delivered</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_delivered_parcels} <span class='text-success'>Delivered</span></h3>"; ?>
+                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Pending</h4>
+                                    <?php echo "<h3 class='text-danger'>{$total_pending_parcels} <span class='text-success'>Pending</span></h3>"; ?>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
+                </div>
 
-                    <div class="row justify-content-center">
+                
+                <div class="row justify-content-center">
+                    <a href="delivered.php" style="text-decoration: none;">
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
                             <div class="small-box shadow-sm border p-3 " style="background-color: #ACE1AF;">
                                 <div class="inner">
-                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Pending</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_pending_parcels}  <span class='text-success'>Pending</span></h3>"; ?>
+                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Delivered</h4>
+                                    <?php echo "<h3 class='text-danger'>{$total_delivered_parcels}  <span class='text-success'>Delivered</span></h3>"; ?>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-boxes text-danger" style="font-size: 50px;"></i>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                            <div class="small-box shadow-sm border p-3" style="background-color:rgba(153, 102, 255, 0.2);">
-                                <div class="inner">
-                                    <h4 class="text-primary"><span class="text-danger">Total</span> Returned</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_returned_parcels}  <span class='text-success'>Returned</span></h3>"; ?>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                    </div>
-
+                    </a>
                 </div>
+
             </div>
+
+            <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
+                <a href="returned.php" style="text-decoration: none;">
+                    <div class="small-box shadow-sm border p-3" style="background-color:rgba(153, 102, 255, 0.2);">
+                        <div class="inner">
+                            <h4 class="text-primary"><span class="text-danger">Total</span> Returned</h4>
+                            <?php echo "<h3 class='text-danger'>{$total_returned_parcels}  <span class='text-success'>Returned</span></h3>"; ?>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
         </div>
+
     </div>
-</div>
 
 
 
-<!-- Blank End -->
 
 
-<?php
-include("footer.php");
-?>
+
+
+    <!-- Blank End -->
+
+
+    <?php
+    include("footer.php");
+    ?>

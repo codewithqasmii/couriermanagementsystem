@@ -1,24 +1,32 @@
 <?php
 session_start();
-?>
-<?php
 include("connection.php");
-
-?>
-
-<?php
 include("header.php");
+
+$sql = "SELECT * FROM parcels WHERE status = '4'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Initialize the counter variable
+$i = 1;
+
 ?>
+
+
 
 <!-- Blank Start -->
 <div class="container">
     <div class="row min-vh-100 bg-light rounded justify-content-center mx-0 m-5">
         <div class="col-md-12 text-center">
-            <a href="parcelslist.php"><button class="btn btn-danger float-right mr-3 mt-3">Back</button></a>
-            <div class="container mt-3">
-                <h2 class="mb-5">Parcels List</h2>
 
-                <div class="d-flex justify-content-around">
+            <div>
+                <h2 class="mb-5 mt-4">Delivered Parcels List</h2>
+                <div class="mb-5 text-right">
+                    <a href="dashboard.php"><button class="btn btn-danger">Dashboard</button></a>
+                    <a href="delivered.php"><button class="btn btn-danger">Back</button></a>
+                </div>
+
+                <div class="d-flex justify-content-around flex-wrap">
                     <!-- Search by Track ID -->
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <input type="text" name="search" placeholder="Search by Track ID">
@@ -116,36 +124,37 @@ include("header.php");
 
                             if (isset($_GET['search'])) {
                                 $search = $_GET['search'];
-                                $sql = "SELECT * FROM parcels WHERE track_id LIKE '%$search%'";
+                                $sql = "SELECT * FROM parcels WHERE track_id LIKE '%$search%' AND status = '4'";
                             } elseif (isset($_GET['city']) && isset($_GET['agent_name'])) {
                                 $city = $_GET['city'];
                                 $agent = $_GET['agent_name'];
                                 $sql = "SELECT * FROM parcels 
-                                         WHERE sender_address LIKE '%$city%' 
-                                         AND agent_name = '$agent'";
+             WHERE sender_address LIKE '%$city%' 
+             AND agent_name = '$agent' AND status = '4'";
                             } elseif (isset($_GET['city'])) {
                                 $city = $_GET['city'];
                                 $sql = "SELECT * FROM parcels 
-                                         WHERE sender_address LIKE '%$city%'";
+             WHERE sender_address LIKE '%$city%' AND status = '4'";
                             } elseif (isset($_GET['agent_name'])) {
                                 $agent = $_GET['agent_name'];
-                                $sql = "SELECT * FROM parcels WHERE agent_name = '$agent'";
+                                $sql = "SELECT * FROM parcels WHERE agent_name = '$agent' AND status = '4'";
                             } elseif (isset($_GET['from_date']) && isset($_GET['to_date'])) {
                                 $from_date = $_GET['from_date'];
                                 $to_date = $_GET['to_date'];
-                                $sql = "SELECT * FROM parcels WHERE date BETWEEN '$from_date' AND '$to_date'";
+                                $sql = "SELECT * FROM parcels WHERE date BETWEEN '$from_date' AND '$to_date' AND status = '4'";
                             } else {
-                                $sql = "SELECT * FROM parcels";
+                                $sql = "SELECT * FROM parcels WHERE status = '4'";
                             }
                             $stmt = $conn->prepare($sql);
                             $stmt->execute();
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
                             if (count($result) == 0) {
                             ?>
                                 <script>
-                                    alert("No tracking ID or  found!");
-                                    window.location.href = "parcelslist.php";
+                                    alert("No tracking ID or Parcel found!");
+                                    window.location.href = "delivered.php";
                                 </script>
                                 <?php
                             } else {
@@ -302,7 +311,7 @@ include("footer.php");
     function getBranches(city) {
         $.ajax({
             type: 'POST',
-            url: 'getBranchsearch.php',
+            url: 'getBranch.php',
             data: {
                 city: city
             },
