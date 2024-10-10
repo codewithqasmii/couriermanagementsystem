@@ -63,6 +63,16 @@
                 transform: rotate(360deg);
             }
         }
+
+        .view-all {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            width: 95%;
+        }
+
+        .view-all:hover {
+            opacity: 1 !important;
+        }
     </style>
 </head>
 
@@ -112,6 +122,7 @@
                 basename($_SERVER['PHP_SELF']) == 'ontheway.php' ||
                 basename($_SERVER['PHP_SELF']) == 'recieved.php' ||
                 basename($_SERVER['PHP_SELF']) == 'userlist.php' ||
+                basename($_SERVER['PHP_SELF']) == 'returned.php' ||
                 basename($_SERVER['PHP_SELF']) == 'pending.php'
             )
                 echo 'active'; ?>">

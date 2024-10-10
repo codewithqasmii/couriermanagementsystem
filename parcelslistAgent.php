@@ -15,7 +15,7 @@ include("includes/agentheader.php");
         <div class="col-md-12 text-center">
 
         <div>
-    <h1 class="mb-5 mt-4">Parcels List</h1>
+    <h1 class="mb-5 mt-4 text-danger">Parcels List</h1>
     <div class="mb-5 d-flex justify-content-between">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="mb-4">
             <!-- form fields here -->
@@ -34,7 +34,7 @@ include("includes/agentheader.php");
                         <option value="4">Delivered</option>
                         <option value="5">Returned</option>
                     </select>
-                    <button type="submit">Search</button>
+                    <button type="submit" class="btn btn-danger">Search</button>
                 </form>
 
                 <div class="table-responsive">

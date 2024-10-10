@@ -315,66 +315,72 @@ $total_way_parcels = $row['total_onway_parcels'];
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
                             <a href="userlist.php" style="text-decoration: none;">
-                            <div class="small-box bg-light shadow-sm border p-3">
-                                <div class="inner">
-                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Users</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_users}  <span class='text-success'>Users</span></h3>"; ?>
+                                <div class="small-box bg-light shadow-sm border p-3 position-relative">
+                                    <div class="inner">
+                                        <h4 class="text-primary"> <span class="text-danger">Total</span> Users</h4>
+                                        <?php echo "<h3 class='text-danger'>{$total_users}  <span class='text-success'>Users</span></h3>"; ?>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-users text-danger" style="font-size: 50px;"></i>
+                                    </div>
+                                    <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-users text-danger" style="font-size: 50px;"></i>
-                                </div>
-                            </div>
                             </a>
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
-                        <a href="agent.php" style="text-decoration: none;">
-
-                            <div class="small-box bg-light shadow-sm border p-3">
-                                <div class="inner">
-                                    <h4 class="text-primary"><span class="text-danger">Total</span> Agents</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_agents}  <span class='text-success'>Agents</span></h3>"; ?>
+                            <a href="agent.php" style="text-decoration: none;">
+                                <div class="small-box bg-light shadow-sm border p-3">
+                                    <div class="inner">
+                                        <h4 class="text-primary"><span class="text-danger">Total</span> Agents</h4>
+                                        <?php echo "<h3 class='text-danger'>{$total_agents}  <span class='text-success'>Agents</span></h3>"; ?>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-user-secret text-danger " style="font-size: 50px;"></i>
+                                    </div>
+                                    <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-user-secret text-danger " style="font-size: 50px;"></i>
-                                </div>
-                            </div>
-                    </a>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
-                        <a href="viewbranch.php" style="text-decoration: none;">
-                            <div class="small-box bg-light shadow-sm border p-3">
-                                <div class="inner">
-                                    <h4 class="text-primary"><span class="text-danger">Total</span> branchs</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_branches}  <span class='text-success'>Branchs</span></h3>"; ?>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-code-branch text-danger " style="font-size: 50px;"></i>
-                                </div>
-                            </div>
-                    </a>
+                            </a>
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
-                        <a href="parcelslist.php" style="text-decoration: none;">
-
-                            <div class="small-box bg-light shadow-sm border p-3">
-                                <div class="inner">
-                                    <h4 class="text-primary"> <span class="text-danger">Total</span> Parcels</h4>
-                                    <?php echo "<h3 class='text-danger'>{$total_parcels_count}  <span class='text-success'>Parcels</span></h3>"; ?>
+                            <a href="viewBranch.php" style="text-decoration: none;">
+                                <div class="small-box bg-light shadow-sm border p-3">
+                                    <div class="inner">
+                                        <h4 class="text-primary"><span class="text-danger">Total</span> branchs</h4>
+                                        <?php echo "<h3 class='text-danger'>{$total_branches}  <span class='text-success'>Branchs</span></h3>"; ?>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-code-branch text-danger " style="font-size: 50px;"></i>
+                                    </div>
+                                    <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
+
+                        <div class="col-12 col-sm-6 col-md-3 h-25 mb-3">
+                            <a href="parcelslist.php" style="text-decoration: none;">
+
+                                <div class="small-box bg-light shadow-sm border p-3">
+                                    <div class="inner">
+                                        <h4 class="text-primary"> <span class="text-danger">Total</span> Parcels</h4>
+                                        <?php echo "<h3 class='text-danger'>{$total_parcels_count}  <span class='text-success'>Parcels</span></h3>"; ?>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
+                                        <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                        </a>
                     </div>
 
                     <div class="row">
-                        <a href="recieved.php" style="text-decoration: none;" >
+                        <a href="recieved.php" style="text-decoration: none;">
                             <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
-                                <div class="small-box shadow-sm border p-3" style="background-color: #FFC0CB;">
+                                <div class="small-box shadow-sm border p-3" style="background-color: #FFC0CB; overflow: hidden;">
                                     <div class="inner">
                                         <h4 class="text-primary"> <span class="text-danger">Total</span> Received</h4>
                                         <?php echo "<h3 class='text-danger'>{$total_receive_parcels}  <span class='text-success'>Received</span></h3>"; ?>
@@ -382,6 +388,7 @@ $total_way_parcels = $row['total_onway_parcels'];
                                     <div class="icon">
                                         <i class="fa fa-boxes text-danger" style="font-size: 50px;"></i>
                                     </div>
+                                    <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
                                 </div>
                         </a>
                     </div>
@@ -395,6 +402,8 @@ $total_way_parcels = $row['total_onway_parcels'];
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
+                                    <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
+
                                 </div>
                             </div>
                         </a>
@@ -403,6 +412,8 @@ $total_way_parcels = $row['total_onway_parcels'];
                     <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
                         <a href="pending.php" style="text-decoration: none;">
                             <div class="small-box shadow-sm border p-3 " style="background-color: lightyellow;">
+                            <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
+
                                 <div class="inner">
                                     <h4 class="text-primary"> <span class="text-danger">Total</span> Pending</h4>
                                     <?php echo "<h3 class='text-danger'>{$total_pending_parcels} <span class='text-success'>Pending</span></h3>"; ?>
@@ -415,12 +426,14 @@ $total_way_parcels = $row['total_onway_parcels'];
                     </div>
                 </div>
 
-                
+
                 <div class="row justify-content-center">
                     <a href="delivered.php" style="text-decoration: none;">
                         <div class="col-12 col-sm-6 col-md-4 h-25 mb-3">
                             <div class="small-box shadow-sm border p-3 " style="background-color: #ACE1AF;">
-                                <div class="inner">
+                            <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
+    
+                            <div class="inner">
                                     <h4 class="text-primary"> <span class="text-danger">Total</span> Delivered</h4>
                                     <?php echo "<h3 class='text-danger'>{$total_delivered_parcels}  <span class='text-success'>Delivered</span></h3>"; ?>
                                 </div>
@@ -439,6 +452,8 @@ $total_way_parcels = $row['total_onway_parcels'];
                             <h4 class="text-primary"><span class="text-danger">Total</span> Returned</h4>
                             <?php echo "<h3 class='text-danger'>{$total_returned_parcels}  <span class='text-success'>Returned</span></h3>"; ?>
                         </div>
+                        <h4><span class="view-all position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white text-decoration-none" style="background-color: rgba(0, 0, 0, 0.4); opacity: 0; transition: opacity 0.3s ease-in-out; color:red;">View All</span></h4>
+
                         <div class="icon">
                             <i class="fa fa-boxes text-danger " style="font-size: 50px;"></i>
                         </div>

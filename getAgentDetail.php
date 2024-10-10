@@ -14,7 +14,7 @@ include("header.php");
     <div class="row min-vh-100 bg-light rounded justify-content-center mx-0 m-5">
         <div class="col-md-12 text-center">
             <div class="container mt-3">
-                <h2>Agents Parcels List</h2>
+                <h2 class="text-danger">Agents Parcels List</h2>
                 <!-- Add a search form above the table -->
                 <?php
 

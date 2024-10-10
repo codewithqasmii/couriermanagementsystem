@@ -14,11 +14,26 @@ include("header.php");
     <div class="row min-vh-100 bg-light rounded justify-content-center mx-0 m-5">
         <div class="col-md-12 text-center">
             <div class="container mt-3">
-                <h2>Branch List</h2>
-                <!-- Add a search form above the table -->
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                    <input type="text" name="search" placeholder="Search by Branch Name">
-                    <button type="submit">Search</button>
+                <a href="viewBranch.php"><button class="btn btn-danger float-right">back</button></a>
+                <h2 class="text-danger mt-3 mb-3">Branch List</h2>
+                
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="mb-5">
+                    <select name="search" id="search">
+                        <option value="">Select a branch</option>
+                        <?php
+                        $sql = "SELECT b_name FROM branch";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        foreach ($result as $data) {
+                        ?>
+                            <option value="<?php echo $data['b_name']; ?>"><?php echo $data['b_name']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" class="btn btn-danger">Search</button>
                 </form>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -118,9 +133,9 @@ include("footer.php");
         var printWindow = window.open('', 'Print Row', 'width=800,height=600');
         printWindow.document.write('<html><head><title>Print Row</title><style>table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px; }</style></head><body>');
         printWindow.document.write("<div style='display: flex; justify-content: center; align-items: center;'>");
-printWindow.document.write("<img src='img/logo.png' style='width: 100px; height: 100px; margin-right: 20px;'/>");
-printWindow.document.write("<h1 style='color: red;'>CMS</h1>");
-printWindow.document.write("</div>");
+        printWindow.document.write("<img src='img/logo.png' style='width: 100px; height: 100px; margin-right: 20px;'/>");
+        printWindow.document.write("<h1 style='color: red;'>CMS</h1>");
+        printWindow.document.write("</div>");
 
 
 

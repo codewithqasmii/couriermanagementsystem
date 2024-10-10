@@ -17,7 +17,7 @@ include("header.php");
             <div class="container mt-3">
                 <h2 class="text-danger mt-5 ">Agents</h2>
                 <div class="table-responsive">
-                        <div class="d-flex justify-content-around">
+                    <div class="d-flex justify-content-around">
                         <!-- Add a dropdown list of agents -->
                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                             <select name="agent">
@@ -55,18 +55,38 @@ include("header.php");
                             </select>
                             <button class="btn btn-danger" type="submit">Search</button>
                         </form>
+                        <!-- Add a dropdown list of branches -->
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+                            <select name="branch">
+                                <option value="">Select Branch</option>
+                                <?php
+                                $branches = array();
+                                $sql = "SELECT DISTINCT branch_name FROM users WHERE role = 'agent'";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->execute();
+                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($result as $branch) {
+                                    $branches[] = $branch['branch_name'];
+                                ?>
+                                    <option value="<?php echo $branch['branch_name']; ?>"><?php echo $branch['branch_name']; ?></option>
+                                <?php } ?>
+                            </select>
+                            <button class="btn btn-danger" type="submit">Search</button>
+                        </form>
                     </div>
                     <?php
-                    if (isset($_GET['agent'])) {
-                        $agent = $_GET['agent'];
-                        $sql = "SELECT * FROM users WHERE uname = '$agent' AND role = 'agent'";
-                    } elseif (isset($_GET['city'])) {
-                        $city = $_GET['city'];
-                        $sql = "SELECT * FROM users WHERE branch_city = '$city' AND role = 'agent'";
-                    } else {
-                        $sql = "SELECT * FROM users WHERE role = 'agent'";
-                    }
-
+if (isset($_GET['agent'])) {
+    $agent = $_GET['agent'];
+    $sql = "SELECT * FROM users WHERE uname = '$agent' AND role = 'agent'";
+} elseif (isset($_GET['city'])) {
+    $city = $_GET['city'];
+    $sql = "SELECT * FROM users WHERE branch_city = '$city' AND role = 'agent'";
+} elseif (isset($_GET['branch'])) {
+    $branch = $_GET['branch'];
+    $sql = "SELECT * FROM users WHERE branch_name = '$branch' AND role = 'agent'";
+} else {
+    $sql = "SELECT * FROM users WHERE role = 'agent'";
+}
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -49,6 +49,18 @@
                 transform: rotate(360deg);
             }
         }
+        .view-all {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            width: 95%;
+        }
+
+        .view-all:hover {
+            opacity: 1 !important;
+        }
+        .small-box:hover .view-all {
+    opacity: 1;
+}
 
 </style>
 

@@ -57,7 +57,7 @@ $parcelData = $result;
         <div class="col-12">
             <div class="container mt-3">
                 <div class="container mt-3 w-100 align-middle">
-                    <h2 class="text-center">Edit Courier</h2>
+                    <h2 class="text-center text-danger">Edit Courier</h2>
                     <form method="post">
                         <div class="row">
                             <div class="col-12 col-md-4">
@@ -70,36 +70,36 @@ $parcelData = $result;
                             </div>
 
                         </div>
-                        <h3 class="mt-3">Sender Details</h3>
+                        <h3 class="mt-3 text-danger">Sender Details</h3>
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Sender Name</label>
-                                <input type="text" class="form-control" name="sendername" value="<?php echo $parcelData['sender_name']; ?>">
+                                <input type="text" class="form-control" name="sendername" value="<?php echo $parcelData['sender_name']; ?>" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <label>Sender Address:</label>
-                                <input type="text" class="form-control" name="senderaddress" value="<?php echo $parcelData['sender_address']; ?>">
+                                <input type="text" class="form-control" name="senderaddress" value="<?php echo $parcelData['sender_address']; ?>" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label>Sender Contact</label>
-                                <input type="number" class="form-control" name="sendercontact" value="<?php echo $parcelData['sender_contact']; ?>">
+                                <input type="tel" class="form-control" placeholder="Sender Contact" value="<?php echo $parcelData['sender_contact']; ?>" name="sendercontact" required minlength="10" title="minimum 10 digits" >
                             </div>
                         </div>
-                        <h3 class="mt-3">Recipent Details</h3>
+                        <h3 class="mt-3 text-danger">Recipent Details</h3>
 
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Recipent Name:</label>
-                                <input type="text" class="form-control" name="recipentname" value="<?php echo $parcelData['recipent_name']; ?>">
+                                <input type="text" class="form-control" name="recipentname" value="<?php echo $parcelData['recipent_name']; ?>" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label>Recipent Address</label>
-                                <input type="text" class="form-control" name="recipentaddress" value="<?php echo $parcelData['recipent_address']; ?>">
+                                <input type="text" class="form-control" name="recipentaddress" value="<?php echo $parcelData['recipent_address']; ?>" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label>Recipent Contact:</label>
-                                <input type="number" class="form-control" name="recipentcontact" value="<?php echo $parcelData['recipent_contact']; ?>">
+                                <input type="tel" class="form-control" placeholder="Recipent Contact" value="<?php echo $parcelData['recipent_contact']; ?>" name="recipentcontact" required minlength="10" title="minimum 10 digits">
                             </div>
 
                         </div>
@@ -108,12 +108,12 @@ $parcelData = $result;
                         <div class="row mt-3">
                             <div class="col-12 col-md-4">
                                 <label>Weight</label>
-                                <input type="text" class="form-control" name="weight" value="<?php echo $parcelData['weight']; ?>">
+                                <input type="text" class="form-control" name="weight" value="<?php echo $parcelData['weight']; ?>" pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <label>Price:</label>
-                                <input type="number" class="form-control" name="price" value="<?php echo $parcelData['price']; ?>">
+                                <input type="text" class="form-control" name="price" value="<?php echo $parcelData['price']; ?>" required pattern="[a-zA-Z0-9\s]{3,}">
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="pwd">Status:</label>
@@ -137,7 +137,7 @@ $parcelData = $result;
                             </div>
 
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-2">Update</button>
+                        <button type="submit" name="submit" class="btn btn-danger mt-2">Update</button>
 
                     </form>
                 </div>

@@ -16,68 +16,47 @@ include("header.php");
         <div class="col-md-12 text-center">
             <a href="parcelslist.php"><button class="btn btn-danger float-right mr-3 mt-3">Back</button></a>
             <div class="container mt-3">
-                <h2 class="mb-5">Parcels List</h2>
+                <h2 class="mb-5 text-danger">Parcels List</h2>
 
-                <div class="d-flex justify-content-around">
+                <div class="d-flex flex-wrap mx-auto text-center">
                     <!-- Search by Track ID -->
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                        <input type="text" name="search" placeholder="Search by Track ID">
-                        <button class="btn btn-danger" type="submit">Search</button>
-                    </form>
+                    <div class="col-md-12 col-sm-12 justify-content-evenly mt-2 mb-2 d-flex flex-wrap mx-auto">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="d-flex justify-content-center">
+                            <input type="text" name="search" placeholder="Search by Track ID">
+                            <button class="btn btn-danger" type="submit">Search</button>
+                        </form>
+                    <!-- </div> -->
 
-                    <!-- Filter by City and Branch -->
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                        <select name="city" id="city" onchange="getAgents(this.value)">
-                            <option value="">Select City</option>
-                            <?php
-                            $sql = "SELECT DISTINCT branch_city FROM users";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->execute();
-                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($result as $city) {
-                                echo "<option value='{$city['branch_city']}'>{$city['branch_city']}</option>";
-                            }
-                            ?>
-                        </select>
-
-                        <select name="branch" id="branch">
-                            <option value="">Select Branch</option>
-                            <?php
-                            if (isset($_GET['city'])) {
-                                $city = $_GET['city'];
-                                $sql = "SELECT DISTINCT branch_name FROM users WHERE branch_city = '$city'";
+                    <!-- Filter by City -->
+                    <!-- <div class="col-md-6 col-sm-12 d-flex flex-wrap text-center mx-auto mt-2 mb-2"> -->
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="mr-1 d-flex justify-content-center">
+                            <select name="city" id="city" onchange="getAgents(this.value)">
+                                <option value="">Select City</option>
+                                <?php
+                                $sql = "SELECT DISTINCT branch_city FROM users";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->execute();
                                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                if (count($result) > 0) {
-                                    foreach ($result as $branch) {
-                                        echo "<option value='{$branch['branch_name']}'>{$branch['branch_name']}</option>";
-                                    }
-                                } else {
-                                    echo "<option value=''>No branches found for the selected city.</option>";
+                                foreach ($result as $city) {
+                                    echo "<option value='{$city['branch_city']}'>{$city['branch_city']}</option>";
                                 }
-                            } else {
-                                echo "<option value=''>Please select a city.</option>";
-                            }
-                            ?>
-                        </select>
-                        <!-- <button class="btn btn-danger" type="submit">Filter</button> -->
-                    </form>
+                                ?>
+                            </select>
+                        </form>
 
-
-                    <!-- Filter by Agent -->
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                        <select name="agent_name" id="agent">
-                            <option value="">Select Agent</option>
-                            <?php
-                            // Add code to populate agent list
-                            ?>
-                        </select>
-                        <button class="btn btn-danger" type="submit">Filter</button>
-                    </form>
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="d-flex justify-content-center">
+                            <select name="agent_name" id="agent">
+                                <option value="">Select Branch Agent</option>
+                                <?php
+                                // Add code to populate agent list
+                                ?>
+                            </select>
+                            <button class="btn btn-danger" type="submit">Filter</button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="mt-2 mb-3 ">
+                <div class="mt-2 mb-3 col-md-12 col-sm-12">
                     <!-- Filter by Date Range -->
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                         <label for="from_date">From:</label>
@@ -87,7 +66,6 @@ include("header.php");
                         <button class="btn btn-danger" type="submit">Search</button>
                     </form>
                 </div>
-
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -144,7 +122,7 @@ include("header.php");
                             if (count($result) == 0) {
                             ?>
                                 <script>
-                                    alert("No tracking ID or  found!");
+                                    alert("No tracking ID or Parcel found!");
                                     window.location.href = "parcelslist.php";
                                 </script>
                                 <?php

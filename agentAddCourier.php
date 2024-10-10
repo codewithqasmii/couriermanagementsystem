@@ -65,7 +65,7 @@ include("includes/agentheader.php");
         <div class="col-12">
             <div class="container mt-3">
                 <div class="container mt-3 w-100 align-middle">
-                    <h2 class="text-center text-primary">Add Courier</h2>
+                    <h2 class="text-center text-danger">Add Courier</h2>
                     <form action="sendMessageAgent.php" method="post">
                         <div class="row">
                             <div class="col-12 col-md-4">
@@ -78,7 +78,7 @@ include("includes/agentheader.php");
                             </div>
 
                         </div>
-                        <h3 class="mt-3 text-primary">Sender Details</h3>
+                        <h3 class="mt-3 text-danger">Sender Details</h3>
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <label>Sender Name</label>
@@ -94,7 +94,7 @@ include("includes/agentheader.php");
                                 <input type="tel" class="form-control" placeholder="Sender Contact" name="sendercontact" required minlength="10" title="minimum 10 digits" >
                             </div>
                         </div>
-                        <h3 class="mt-3 text-primary">Recipent Details</h3>
+                        <h3 class="mt-3 text-danger">Recipent Details</h3>
 
                         <div class="row">
                             <div class="col-12 col-md-4">
@@ -137,7 +137,7 @@ include("includes/agentheader.php");
                             </div>
 
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3">Add Courier</button>
+                        <button type="submit" name="submit" class="btn btn-danger mt-3">Add Courier</button>
 
 
 

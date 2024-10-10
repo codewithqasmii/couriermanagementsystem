@@ -34,8 +34,7 @@ try {
 
 
         <!-- Blank Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="row bg-light rounded justify-content-center mx-0">
+        <div class="row min-vh-100 bg-light rounded justify-content-center mx-0 m-5">
                 <div class="col-md-12 text-center">
                 <div>
                 <h1 class="text-danger mt-5 mb-5">City Wise Branches</h1>

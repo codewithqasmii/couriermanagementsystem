@@ -29,7 +29,7 @@ include("includes/userheader.php");
     <div class="row vh-100 bg-light rounded justify-content-center mx-0">
         <div class="col-md-8 text-center mt-3">
             <h1 class="text-danger animate__animated animate__zoomInUp">Welcome to our Courier Service</h1>
-            <h2 class="mt-5">Track Parcel</h2>
+            <h2 class="mt-5 mb-5 text-danger">Track Parcel</h2>
             <!-- Add a search form above the table -->
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
                 <div class="input-group">
