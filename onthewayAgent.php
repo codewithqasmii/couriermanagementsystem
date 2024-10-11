@@ -10,7 +10,7 @@ include("includes/agentheader.php");
         <div class="col-md-12 text-center">
 
         <div>
-                <h2 class="mb-5 mt-4">On the Way Parcels List</h2>
+                <h2 class="mb-5 mt-4 text-danger">On the Way Parcels List</h2>
                 <div class="mb-5 text-right">
                     <a href="dashboard.php"><button class="btn btn-danger">Dashboard</button></a>
                     <a href="onthewayAgent.php"><button class="btn btn-danger">Back</button></a>

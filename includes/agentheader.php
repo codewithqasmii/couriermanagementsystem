@@ -125,7 +125,7 @@
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                <h2 class="text-dark mb-0">CMS</h2>
+                <!-- <h2 class="text-dark mb-0">CMS</h2> -->
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars text-danger"></i>
@@ -134,8 +134,9 @@
                 <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form> -->
-                <div class=" mx-auto" >
-                    <h2 class="text-danger text-center"  style="text-align: center;">  COURIER -- MANAGEMENT -- SYSTEM</h2>
+                <div class="mx-auto text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+                    <h3 class="text-danger d-none d-sm-block d-lg-block"> COURIER -- MANAGEMENT -- SYSTEM</h3>
+                    <h1 class="text-danger d-lg-none d-sm-block logo"><img src="img/logo.png" alt="" style="width: 130px;"></h1>                
                 </div>
                 <div class="navbar-nav align-items-center ms-auto">
 

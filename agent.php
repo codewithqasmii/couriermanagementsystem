@@ -75,18 +75,18 @@ include("header.php");
                         </form>
                     </div>
                     <?php
-if (isset($_GET['agent'])) {
-    $agent = $_GET['agent'];
-    $sql = "SELECT * FROM users WHERE uname = '$agent' AND role = 'agent'";
-} elseif (isset($_GET['city'])) {
-    $city = $_GET['city'];
-    $sql = "SELECT * FROM users WHERE branch_city = '$city' AND role = 'agent'";
-} elseif (isset($_GET['branch'])) {
-    $branch = $_GET['branch'];
-    $sql = "SELECT * FROM users WHERE branch_name = '$branch' AND role = 'agent'";
-} else {
-    $sql = "SELECT * FROM users WHERE role = 'agent'";
-}
+                    if (isset($_GET['agent'])) {
+                        $agent = $_GET['agent'];
+                        $sql = "SELECT * FROM users WHERE uname = '$agent' AND role = 'agent'";
+                    } elseif (isset($_GET['city'])) {
+                        $city = $_GET['city'];
+                        $sql = "SELECT * FROM users WHERE branch_city = '$city' AND role = 'agent'";
+                    } elseif (isset($_GET['branch'])) {
+                        $branch = $_GET['branch'];
+                        $sql = "SELECT * FROM users WHERE branch_name = '$branch' AND role = 'agent'";
+                    } else {
+                        $sql = "SELECT * FROM users WHERE role = 'agent'";
+                    }
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
