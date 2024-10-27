@@ -70,8 +70,8 @@ if (isset($_POST["track_id"]) && isset($_POST["sendercontact"])) {
     // $apiURL = "pewxg3.api.infobip.com";
     // $apiKey = "b23b9a38e327a4afa16676fff6e07adf-8c428a9c-a50d-4efc-ae7d-90063ff2f8ae";
 
-    $apiURL = "51yvyx.api.infobip.com";
-    $apiKey = "1c00e175d4d7c126a0cc5848988212ca-eb24309c-312c-4def-b712-c116362c6c0d";
+    $apiURL = "qdwvlr.api.infobip.com";
+    $apiKey = "2a423a77769268f02b4d745ab462cd0f-d3e73976-a656-472c-aa12-8b86d2000f33";
     
 
     try {

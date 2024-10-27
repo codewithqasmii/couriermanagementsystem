@@ -45,50 +45,52 @@ if (count($agent_parcels) > 0) {
                 <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
 
                 <!-- <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>"; ?></h3> -->
-                <table class="table table-striped" id="table">
-                    <thead>
-                        <tr>
-                            <td colspan="7">
-                                <h3 class="text-danger mt-5"><?php echo "$branch_name Branch"; ?></h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <!-- <th>Branch Name</th> -->
-                            <th>Agent Name</th>
-                            <th>Total Parcels</th>
-                            <th>Total Delivered</th>
-                            <th>Total Received</th>
-                            <th>Total On the Way</th>
-                            <th>Total Returned</th>
-                            <th>Total Pending</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($agent_parcels as $row) {
-                            $branch_name = $row['branch_name'];
-                            $agent_name = $row['agent_name'];
-                            $total_parcels = $row['total_parcels'];
-                            $total_delivered_parcels = $row['total_delivered_parcels'];
-                            $total_receive_parcels = $row['total_receive_parcels'];
-                            $total_on_the_way = $row['total_on_the_way'];
-                            $total_returned_parcels = $row['total_returned_parcels'];
-                            $total_pending_parcels = $row['total_pending_parcels'];
-                            echo "<tr>";
-                            // echo "<td>$branch_name</td>";
-                            echo "<td>$agent_name</td>";
-                            echo "<td>$total_parcels</td>";
-                            echo "<td>$total_delivered_parcels</td>";
-                            echo "<td>$total_receive_parcels</td>";
-                            echo "<td>$total_on_the_way</td>";
-                            echo "<td>$total_returned_parcels</td>";
-                            echo "<td>$total_pending_parcels</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <button class="btn btn-success float-end" onclick="downloadExcel()">Download Excel</button>
+                <div class="table-responsive" id="table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td colspan="7">
+                                    <h3 class="text-danger mt-5"><?php echo "$branch_name Branch"; ?></h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!-- <th>Branch Name</th> -->
+                                <th>Agent Name</th>
+                                <th>Total Parcels</th>
+                                <th>Total Delivered</th>
+                                <th>Total Received</th>
+                                <th>Total On the Way</th>
+                                <th>Total Returned</th>
+                                <th>Total Pending</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($agent_parcels as $row) {
+                                $branch_name = $row['branch_name'];
+                                $agent_name = $row['agent_name'];
+                                $total_parcels = $row['total_parcels'];
+                                $total_delivered_parcels = $row['total_delivered_parcels'];
+                                $total_receive_parcels = $row['total_receive_parcels'];
+                                $total_on_the_way = $row['total_on_the_way'];
+                                $total_returned_parcels = $row['total_returned_parcels'];
+                                $total_pending_parcels = $row['total_pending_parcels'];
+                                echo "<tr>";
+                                // echo "<td>$branch_name</td>";
+                                echo "<td>$agent_name</td>";
+                                echo "<td>$total_parcels</td>";
+                                echo "<td>$total_delivered_parcels</td>";
+                                echo "<td>$total_receive_parcels</td>";
+                                echo "<td>$total_on_the_way</td>";
+                                echo "<td>$total_returned_parcels</td>";
+                                echo "<td>$total_pending_parcels</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <button class="btn btn-success float-end mt-3" onclick="downloadExcel()">Download Excel</button> -->
 
 
             </div>
@@ -101,7 +103,7 @@ if (count($agent_parcels) > 0) {
 
 <?php
 } else {
-    ?>
+?>
     <!-- Blank Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="row vh-100 bg-light justify-content-center mx-0">
@@ -110,7 +112,8 @@ if (count($agent_parcels) > 0) {
                 <a href="branchAgent.php" class="btn btn-danger float-end">Back</a>
 
                 <!-- <h3 class="text-danger mt-5"><?php echo "<td>$branch_name Branch</td>"; ?></h3> -->
-                <table class="table table-striped" id="table">
+                <div class="table-responsive" id="table">
+                    <table class="table">
                     <thead>
                         <tr>
                             <td colspan="7">
@@ -127,17 +130,17 @@ if (count($agent_parcels) > 0) {
                             <th>Total Returned</th>
                             <th>Total Pending</th>
                         </tr>
-                        
+
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                            <p class="text-danger mt-5">No Agents / Parcels found for this branch.</p>
+                <p class="text-danger mt-5">No Agents / Parcels found for this branch.</p>
             </div>
         </div>
     </div>
     <!-- Blank End -->
-    <?php
+<?php
 }
 
 

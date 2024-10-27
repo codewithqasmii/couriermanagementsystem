@@ -171,7 +171,7 @@
 
                 <div class="mx-auto text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
                     <h3 class="text-danger d-none d-sm-block d-lg-block"> COURIER -- MANAGEMENT -- SYSTEM</h3>
-                    <h1 class="text-danger d-lg-none d-sm-block logo"><img src="img/logo.png" alt="" style="width: 130px;"></h1>                
+                    <h1 class="text-danger d-lg-none d-sm-block logo"><img src="img/logo.png" alt="" style="width: 130px;"></h1>
                 </div>
                 <div class="navbar-nav align-items-center ms-auto">
 
